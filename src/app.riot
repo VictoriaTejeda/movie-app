@@ -1,16 +1,28 @@
 <app>
-  <div class="container">
+  <div >
     <router>
-      <div class="row">
-        <nav class="menu column">
-          <a
-            each={page in state.pages}
-            class={state.activePage === page ? 'active' : '' }
-            href={page.path}>
-            {page.label}
-          </a>
+      <header class="row header">
+        <nav class="menu column navbar navbar-expand-lg navbar-light ">
+          <a class="navbar-brand logo">MovieO</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  each={page in state.pages}
+                  class={state.activePage === page ? 'active' : '' }
+                  href={page.path}>
+                  {page.label}
+                </a>
+              </li>
+            </ul>    
+            <shearch-form/> 
+          </div>
         </nav>
-      </div>
+      </header>
+
       <div if={state.showNotFound} class="row">
         <div class="column column-60">
           <not-found />
@@ -21,10 +33,6 @@
           <route each={page in state.pages} path={page.path}>
             <main is={page.componentName}/>
           </route>
-        </div>
-        <!-- notice how <sidebar> is registered as global component -->
-        <div class="column column-40">
-          <sidebar/>
         </div>
       </div>
     </router>
@@ -77,17 +85,33 @@
   </script>
 
   <style>
-    :host {
-      padding: 2rem 0;
+    .header{
+      display: flex;
+      align-items: center;
+      background-color: #384259;
+      justify-content: center;
+      align-content: center;
+      padding-left: 2vh;
+      box-shadow: 
+      rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+      rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 
+      rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     }
-
     .menu {
-      margin: 1rem -1rem;
+      margin: 0.5rem -0.5rem;
+      color:#f73859;
+      display: flex;
+      align-content: center;
+      align-items: center;
+      background-color:trasparent !important;
     }
-
+    .logo{
+      color:#F73859 !important;
+      font-size:4vh;
+    }
     .menu a {
       padding: 0 1rem;
-      color: black;
+      color: #c4edde;
     }
 
     .menu a.active.active {
@@ -97,6 +121,7 @@
 
     .menu a:hover, .menu a:focus, .menu a:active {
       text-decoration: underline;
+
     }
   </style>
 </app>

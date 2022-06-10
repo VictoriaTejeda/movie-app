@@ -1,0 +1,46 @@
+<tp-movielist>
+   <article class="trendingPreview-movieList">
+      <div class="movie-container">
+       <a> 
+         <img 
+            src="https://i.ibb.co/MMC9LPj/CISNE-NEGRO.jpg"
+            class="movie-img"
+            alt="nombre de la pelicula"
+          />
+        </a>  
+      </div>
+   </article>
+
+   <script>
+      async function getTrendingMoviesPreview(){
+          const res = await fetcg('https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>')
+      }
+   </script>
+
+   <style>
+      .trendingPreview-movieList{
+         display:flex;
+         flex-direction:row;
+         flex-wrap:wrap;
+         justify-content:center;
+         align-content:center;
+         margin-bottom: 4vh;
+      }
+      
+      .movie-container{
+         display:flex;
+         flex-direction:column;
+         justify-content:center;
+         align-items:center;
+         box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      }
+
+      .movie-img ,a {
+         width:99%;
+         height:99%;
+         align-self:center;
+      }
+      
+
+   </style>
+</tp-movielist>
