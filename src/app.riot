@@ -30,13 +30,14 @@
         </div>
       </div>
       <div if={!state.showNotFound} class="row">
-        <div class="column column-60">
+        <div  class="column column-60">
           <route each={page in state.pages} path={page.path} hash={page.hash}>
-            <main is={page.componentName}/>
+            <main  is={page.componentName}/>
           </route>
         </div>
       </div>
     </router>
+    <div id="prueba" ></div>
   </div>
 
   <script>

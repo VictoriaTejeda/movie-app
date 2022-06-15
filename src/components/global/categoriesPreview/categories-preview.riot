@@ -18,9 +18,10 @@
        onMounted(){
          getCategoriesPreview().then(function (response){
             const categories = response.data.genres;
-            
-            const categoriesPreviewContainer= document.querySelector('.categoriesPreview-list')
+            const prueba = document.querySelector('#prueba')
 
+            const categoriesPreviewContainer= document.querySelector('.categoriesPreview-list')
+            
              categoriesPreviewContainer.innerHTML=""
 
             categories.forEach( category=> {
@@ -30,8 +31,12 @@
                const categoryTitle = document.createElement('h5');
                  categoryTitle.classList.add('category-title');
                  categoryTitle.setAttribute('id', 'id' + category.id);
+                 prueba.innerHTML=""
                  categoryTitle.addEventListener('click', () => {
                  location.hash = `#category=${category.id}-${category.name}`;
+                 console.log(prueba )
+
+                 prueba.innerHTML+=`<h1>Aqui es prueba ${category.id}- ${category.name} </h1>`
                });
 
                const categoryTitleText = document.createTextNode(category.name);
@@ -40,6 +45,7 @@
                categoryContainer.appendChild(categoryTitle);
                categoriesPreviewContainer.appendChild(categoryContainer);
                 })
+                 
            })
        },
 
