@@ -1,30 +1,46 @@
 <tp-movielist>
    <article class="trendingPreview-movieList">
-      <div class="movie-container">
-       <a> 
-         <img 
-            src="https://i.ibb.co/MMC9LPj/CISNE-NEGRO.jpg"
-            class="movie-img"
-            alt="nombre de la pelicula"
-          />
-        </a>  
-      </div>
+      
    </article>
 
    <script>
-      async function getTrendingMoviesPreview(){
-          const res = await fetcg('https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>')
+       import getTrendingMoviesPreview from "../../../service/movieService.js";
+       
+       
+       
+
+     export default{
+   
+
+       onMounted(){
+        this.getTrendingPreview()
+       }, 
+
+
+      getTrendingPreview() {
+           getTrendingMoviesPreview().then(function (response){
+            const movies = response.data.results;
+            const trendingPreviewContainer= document.querySelector('.trendingPreview-movieList')
+            movies.forEach( movie=> {
+            trendingPreviewContainer.innerHTML += `
+               <div class="movie-container">
+                  <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" class="movie-img"
+                     alt=${movie.title}/>
+               </div>
+               `;
+          })
+           })
       }
+
+     }
+
    </script>
 
    <style>
       .trendingPreview-movieList{
-         display:flex;
-         flex-direction:row;
-         flex-wrap:wrap;
-         justify-content:center;
-         align-content:center;
          margin-bottom: 4vh;
+         overflow: auto;
+         white-space: nowrap;
       }
       
       .movie-container{
@@ -32,7 +48,14 @@
          flex-direction:column;
          justify-content:center;
          align-items:center;
-         box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+         display: inline-block;
+         color: white;
+         text-align: center;
+         padding: 14px;
+         box-shadow: 
+         rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+         rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 
+         rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
       }
 
       .movie-img ,a {
@@ -40,6 +63,13 @@
          height:99%;
          align-self:center;
       }
+      
+      @media (min-width: 800px) {
+       ::-webkit-scrollbar{
+        background: #f73859;
+       border-radius: 20px;
+      }
+       }
       
 
    </style>

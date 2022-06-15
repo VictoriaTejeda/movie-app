@@ -1,18 +1,56 @@
 <categories-preview>
-   <h2 class="categoriesPrevie"> categorias</h2>
+   <h2 class="categoriesPrevie"> Categorias</h2>
     <section id="categoriesPreview" 
      class="categoriesPreview-container">
         <article class="categoriesPreview-list">
-            <div class="category-container">
-                <h3 id="id" class="category-title">Romance<h3>
-            </div>
 
-            <div class="category-container">
-                <h3 id="id" class="category-title">Comedia<h3>
-            </div>
         </article>
     </section>
-    
+
+    <script>
+      import getCategoriesPreview from "../../../service/categoriesService";
+       
+       window.addEventListener('DOMContentLoaded', navigator, false);
+       window.addEventListener('hashchange', navigator, false);
+       
+      export default{
+      
+       onMounted(){
+         getCategoriesPreview().then(function (response){
+            const categories = response.data.genres;
+            
+            const categoriesPreviewContainer= document.querySelector('.categoriesPreview-list')
+
+             categoriesPreviewContainer.innerHTML=""
+
+            categories.forEach( category=> {
+                const categoryContainer = document.createElement('div');
+                 categoryContainer.classList.add('category-container');
+
+               const categoryTitle = document.createElement('h5');
+                 categoryTitle.classList.add('category-title');
+                 categoryTitle.setAttribute('id', 'id' + category.id);
+                 categoryTitle.addEventListener('click', () => {
+                 location.hash = `#category=${category.id}-${category.name}`;
+               });
+
+               const categoryTitleText = document.createTextNode(category.name);
+
+               categoryTitle.appendChild(categoryTitleText);
+               categoryContainer.appendChild(categoryTitle);
+               categoriesPreviewContainer.appendChild(categoryContainer);
+                })
+           })
+       },
+
+       getCategoriesPrev (id ){
+        console.log('click' + id)
+
+       }
+
+      } 
+    </script>
+
     <style>
       .categoriesPreview-container{
          display:flex;
@@ -24,10 +62,43 @@
        
       .categoriesPrevie{
          text-align: center;
-         font-size: 3vh;
+         font-size: 4vh;
          color: #7ac7ca;
       } 
 
+      .categoriesPreview-list{
+        display: grid;
+        justify-items: stretch;
+        grid-template-columns: repeat(2, 1fr);
+        text-align: center;
+      }
 
+      .category-container {
+        margin: 2vh;
+        background-image: 
+        radial-gradient(circle, 
+        #c4edde, #b2e4d6, 
+        #a0dacf, #8dd1c9, #7ac7c4);
+        padding: 0.8vh;
+        border-radius: 0.5vh;
+        box-shadow: 
+        rgba(6, 24, 44, 0.4)
+         0px 0px 0px 2px, 
+         rgba(6, 24, 44, 0.65) 
+         0px 4px 6px -1px, 
+         rgba(255, 255, 255, 0.08)
+         0px 1px 0px inset;
+      }
+
+      .category-title{
+        font-size:2.5vh;
+        font-weight: 600;
+        color:#333;
+      }
+      @media (min-width: 800px) {
+       .categoriesPreview-list{
+        grid-template-columns: repeat(6, 1fr);
+       }
+      }
     </style>
 </categories-preview>

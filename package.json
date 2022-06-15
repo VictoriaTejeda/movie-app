@@ -7,6 +7,7 @@
     "@riotjs/hot-reload": "^6.0.0",
     "@riotjs/lazy": "^2.0.1",
     "@riotjs/route": "^8.0.0",
+    "axios": "^0.27.2",
     "riot": "^6.0.2",
     "url": "^0.11.0"
   },

@@ -22,6 +22,7 @@
           </div>
         </nav>
       </header>
+      
 
       <div if={state.showNotFound} class="row">
         <div class="column column-60">
@@ -30,7 +31,7 @@
       </div>
       <div if={!state.showNotFound} class="row">
         <div class="column column-60">
-          <route each={page in state.pages} path={page.path}>
+          <route each={page in state.pages} path={page.path} hash={page.hash}>
             <main is={page.componentName}/>
           </route>
         </div>
@@ -58,6 +59,14 @@
           /* webpackPrefetch: true, webpackChunkName: 'pages/about' */
           './pages/about.riot'
         )),
+        Trends: lazy(Loader, () => import(
+          /* webpackPrefetch: true, webpackChunkName: 'pages/about' */
+          './pages/trends.riot'
+        )),
+         Category: lazy(Loader, () => import(
+          /* webpackPrefetch: true, webpackChunkName: 'pages/about' */
+          './pages/category.riot'
+        ))
       },
       state: {
         pages,
