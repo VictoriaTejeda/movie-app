@@ -1,6 +1,6 @@
 <categories-preview>
   <div class= "trending-preview-header">
-    <h2 class= "trending-title">Action</h2>
+    <h2 class= "trending-title">Family</h2>
     <a href= "/category"  class="btn trending-preview-btn"> Ir a categorias </a>
   </div>
   <article class="categoryPreview-movieList">    
@@ -12,7 +12,7 @@
       export default{
 
         onMounted(){  
-          getMoviesByCategory(28).then(function (response){
+          getMoviesByCategory(10751).then(function (response){
                     
             const categoryPreviewContainer= document.querySelector('.categoryPreview-movieList')        
             const movies = response.data.results;

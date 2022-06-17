@@ -8,8 +8,7 @@
     </section>
 
     <section id="movie-categorie-list">
-     <h4> Elige una categoria</h4>
-     <a><img src="https://i.ibb.co/zFNRvnx/pngwing-com-7.png" alt="Imagen-palomitas" class="img-pop" border="0"></a>
+     <categorie-prev/>
     </section>
 
 
@@ -21,9 +20,7 @@
       
        onMounted(){
           getCategoriesPreview().then(function (response){
-
             const categories = response.data.genres;
-
             const containerMovie = document.querySelector('#movie-categorie-list')
             const containerMovieApp = document.querySelector('#container-movie')
             const categoriesPreviewContainer= document.querySelector('.categoriesPreview-list')
@@ -34,7 +31,6 @@
             categories.forEach( category=> {
                 const categoryContainer = document.createElement('div');
                  categoryContainer.classList.add('category-container');
-
                 const categoryTitle = document.createElement('h5');
                  categoryTitle.classList.add('category-title');
                  categoryTitle.setAttribute('id', 'id' + category.id);
@@ -48,7 +44,7 @@
                   getMoviesByCategory(category.id).then(function (response){
         
                     const movies = response.data.results;
-                    
+                    console.log(movies)
                      
                     movies.forEach(movie=> {
                       containerMovie.innerHTML+=`
@@ -60,9 +56,7 @@
                   })
   
                 });
-
               const categoryTitleText = document.createTextNode(category.name);
-
               categoryTitle.appendChild(categoryTitleText);
               categoryContainer.appendChild(categoryTitle);
               categoriesPreviewContainer.appendChild(categoryContainer);
@@ -70,7 +64,6 @@
                  
           })
         }
-
       } 
     </script>
 
@@ -88,12 +81,10 @@
          font-size: 4vh;
          color: #7ac7ca;
       } 
-
       .categoriesPreview-list{
         overflow: auto;
          white-space: nowrap;
       }
-
       .category-container {
         width: 18vh;
         text-align:center;
@@ -113,13 +104,11 @@
          rgba(255, 255, 255, 0.08)
          0px 1px 0px inset;
       }
-
       .category-title{
         font-size:2.5vh;
         font-weight: 600;
         color:#333;
       }
-
       #movie-categorie-list{
         display: grid;
         grid-gap: 2vh;
@@ -131,7 +120,6 @@
         width: 90%;
         margin: 3vh ;
       }
-
        h4{
         text-align:center;
         color:#c4edde;
@@ -141,7 +129,6 @@
        .categoriesPreview-list{
         grid-template-columns: repeat(6, 1fr);
        }
-
        .img-pop{
         width: 70%;
        }

@@ -2,12 +2,11 @@
     <section>
         <div class= "trending-preview-header">
             <h2 class= "trending-title"> Tendencias</h2>
-            <button  class="btn trending-preview-btn"> Ver más </button>
+            <a href="/trends" class="btn trending-preview-btn"> Ver más </a>
         </div>
     </section>
 
     <script>
-      import getTrendingMoviesPreview from "../../../service/movieService.js";
       
 
       export default{
@@ -15,35 +14,11 @@
          
 
        onMounted(){
-        const btnTrending= document.querySelector('.trending-preview-btn')
+      
         const containerMovie = document.querySelector('#container-movie')
 
         containerMovie.innerHTML=""
 
-        btnTrending.addEventListener('click', function () {
-             
-             location.hash = '#trending'
-
-             containerMovie.innerHTML+=`<h1 class="title" >trending</h1>`
-
-             getTrendingMoviesPreview().then(function (response){
-            const movies = response.data.results;
-
-            movies.forEach( movie=> {
-            containerMovie.innerHTML += `
-               <div class="movie-container">
-                  <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" class="movie-img"
-                     alt=${movie.title}/>
-               </div>
-               `;
-          })
-           })
-
-
-
-
-
-         })
        }
 
       }

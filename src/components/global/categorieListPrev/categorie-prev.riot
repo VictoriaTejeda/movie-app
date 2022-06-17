@@ -1,22 +1,24 @@
-<generic-list>
+<categorie-prev>
   <section id="genericList" class="genericList-container">
+
   </section>
 
   <script>
-    import getTrendingMoviesPreview from "../../../service/movieService.js";
+    import getMoviesByCategory from "../../../service/movieCategoryService";
 
     export default{
+
       onMounted(){
         const containerMovie= document.querySelector('#genericList')
         const containerMovieApp = document.querySelector('#container-movie')
         
         containerMovieApp.innerHTML= ''
-        containerMovie.innerHTML+=`<h1 class="title" >Trending</h1>`
+        containerMovie.innerHTML+=`<h1 class="title" >Action</h1>`
         
-        getTrendingMoviesPreview().then(function (response){
+        getMoviesByCategory(28).then(function (response){
 
           const movies = response.data.results;
-
+          
           movies.forEach( movie=> {
             containerMovie.innerHTML += `
                <div class="movie-container">
@@ -57,6 +59,4 @@
      }
 
   </style>
-  
-
-</generic-list>
+</categorie-prev>
