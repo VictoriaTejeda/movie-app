@@ -1,3 +1,151 @@
 <category>
-    <h1> categorias</h1>
+    <h2 class="categoriesPrevie"> Categorias</h2>
+    
+    <section id="categoriesPreview" 
+     class="categoriesPreview-container">
+        <article class="categoriesPreview-list">
+        </article>
+    </section>
+
+    <section id="movie-categorie-list">
+     <h4> Elige una categoria</h4>
+     <a><img src="https://i.ibb.co/zFNRvnx/pngwing-com-7.png" alt="Imagen-palomitas" class="img-pop" border="0"></a>
+    </section>
+
+
+    <script>
+      import getCategoriesPreview from '../service/categoriesService'
+      import getMoviesByCategory from '../service/movieCategoryService'
+       
+      export default{
+      
+       onMounted(){
+          getCategoriesPreview().then(function (response){
+
+            const categories = response.data.genres;
+
+            const containerMovie = document.querySelector('#movie-categorie-list')
+            const containerMovieApp = document.querySelector('#container-movie')
+            const categoriesPreviewContainer= document.querySelector('.categoriesPreview-list')
+            
+            categoriesPreviewContainer.innerHTML= ''
+            containerMovieApp.innerHTML= ''
+            
+            categories.forEach( category=> {
+                const categoryContainer = document.createElement('div');
+                 categoryContainer.classList.add('category-container');
+
+                const categoryTitle = document.createElement('h5');
+                 categoryTitle.classList.add('category-title');
+                 categoryTitle.setAttribute('id', 'id' + category.id);
+                 
+                 
+                categoryTitle.addEventListener('click', () => {
+                
+                containerMovie.innerHTML=""
+                 containerMovie.innerHTML+=`<h1 class="title" >${category.name}</h1>`
+                 
+                  getMoviesByCategory(category.id).then(function (response){
+        
+                    const movies = response.data.results;
+                    
+                     
+                    movies.forEach(movie=> {
+                      containerMovie.innerHTML+=`
+                        <div class="movie-container">
+                          <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" class="movie-img"
+                          alt=${movie.title}/>
+                        </div>`
+                    })
+                  })
+  
+                });
+
+              const categoryTitleText = document.createTextNode(category.name);
+
+              categoryTitle.appendChild(categoryTitleText);
+              categoryContainer.appendChild(categoryTitle);
+              categoriesPreviewContainer.appendChild(categoryContainer);
+            })
+                 
+          })
+        }
+
+      } 
+    </script>
+
+    <style>
+      .categoriesPreview-container{
+         display:flex;
+         flex-direction:row;
+         flex-wrap: wrap;
+         justify-content: center;
+         align-content: center;
+      }
+       
+      .categoriesPrevie{
+         text-align: center;
+         font-size: 4vh;
+         color: #7ac7ca;
+      } 
+
+      .categoriesPreview-list{
+        overflow: auto;
+         white-space: nowrap;
+      }
+
+      .category-container {
+        width: 18vh;
+        text-align:center;
+        display: inline-block;
+        margin: 2vh;
+        background-image: 
+        radial-gradient(circle, 
+        #c4edde, #b2e4d6, 
+        #a0dacf, #8dd1c9, #7ac7c4);
+        padding: 0.2vh;
+        border-radius: 0.5vh;
+        box-shadow: 
+        rgba(6, 24, 44, 0.4)
+         0px 0px 0px 2px, 
+         rgba(6, 24, 44, 0.65) 
+         0px 4px 6px -1px, 
+         rgba(255, 255, 255, 0.08)
+         0px 1px 0px inset;
+      }
+
+      .category-title{
+        font-size:2.5vh;
+        font-weight: 600;
+        color:#333;
+      }
+
+      #movie-categorie-list{
+        display: grid;
+        grid-gap: 2vh;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .img-pop{
+        width: 90%;
+        margin: 3vh ;
+      }
+
+       h4{
+        text-align:center;
+        color:#c4edde;
+        margin:3vh 0vh;
+       }
+      @media (min-width: 800px) {
+       .categoriesPreview-list{
+        grid-template-columns: repeat(6, 1fr);
+       }
+
+       .img-pop{
+        width: 70%;
+       }
+      }
+    </style>
+    
 </category>

@@ -3,7 +3,7 @@
     <router>
       <header class="row header">
         <nav class="menu column navbar navbar-expand-lg navbar-light ">
-          <a class="navbar-brand logo">MovieO</a>
+          <a href='/' class="navbar-brand logo">MovieO</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -22,8 +22,8 @@
           </div>
         </nav>
       </header>
-      
 
+      
       <div if={state.showNotFound} class="row">
         <div class="column column-60">
           <not-found />
@@ -36,7 +36,7 @@
           </route>
         </div>
       </div>
-    </router>
+
     <section id="location" >
       <div id= "container-movie"> <div>
     </section>
@@ -49,6 +49,24 @@
     import NotFound from './pages/not-found.riot'
     import pages from './pages'
 
+    window.addEventListener('DOMContentLoaded', navigator, false);
+    window.addEventListener('hashchange', navigator, false);
+
+     function navigator() {
+  console.log({ location });
+  
+  if (location.hash.startsWith('#trending')) {
+    console.log('trends')
+  } else if (location.hash.startsWith('#search=')) {
+    console.log('search')
+  } else if (location.hash.startsWith('#movie=')) {
+    console.log('movie');
+  } else if (location.hash.startsWith('#category=')) {
+    console.log('category')
+  } else {
+    ('home')
+  }
+     }
     export default {
       components: {
         Router,
@@ -163,13 +181,16 @@
       }
       
       .movie-img{
-        width: 93%
+        width: 96%
       }
 
      @media (min-width: 1000px) {
        h1{
         grid-column: 1/ span 4;
        }
+       .movie-container{
+        width: 35vh;
       }
+     }
   </style>
 </app>
