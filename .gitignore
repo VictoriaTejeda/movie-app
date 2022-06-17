@@ -62,4 +62,3 @@ generated
 !.travis.yml
 
 # API-KEY 
-src/key.js
