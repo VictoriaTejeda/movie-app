@@ -1,71 +1,43 @@
 <categories-preview>
-   <h2 class="categoriesPrevie"> Categorias</h2>
-    <section id="categoriesPreview" 
-     class="categoriesPreview-container">
-        <article class="categoriesPreview-list">
+  <div class= "trending-preview-header">
+    <h2 class= "trending-title">Family</h2>
+    <a href= "/category"  class="btn trending-preview-btn"> Ir a categorias </a>
+  </div>
+  <article class="categoryPreview-movieList">    
+  </article>
 
-        </article>
-    </section>
-
-    <script>
-      import getCategoriesPreview from "../../../service/categoriesService";
-       
-       window.addEventListener('DOMContentLoaded', navigator, false);
-       window.addEventListener('hashchange', navigator, false);
-       
+  <script>
+    import getMoviesByCategory from "../../../service/movieCategoryService";
+    
       export default{
-      
-       onMounted(){
-         getCategoriesPreview().then(function (response){
-            const categories = response.data.genres;
-            
-            const categoriesPreviewContainer= document.querySelector('.categoriesPreview-list')
 
-             categoriesPreviewContainer.innerHTML=""
+        onMounted(){  
+          getMoviesByCategory(10751).then(function (response){
+                    
+            const categoryPreviewContainer= document.querySelector('.categoryPreview-movieList')        
+            const movies = response.data.results;
+                             
+            movies.forEach(movie=> {
+             categoryPreviewContainer.innerHTML+=`
+                <div class="movie-container">
+                  <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" class="movie-img"
+                  alt=${movie.title}/>
+                  </div>`
+            })
+          })
 
-            categories.forEach( category=> {
-                const categoryContainer = document.createElement('div');
-                 categoryContainer.classList.add('category-container');
+        } 
+      }
 
-               const categoryTitle = document.createElement('h5');
-                 categoryTitle.classList.add('category-title');
-                 categoryTitle.setAttribute('id', 'id' + category.id);
-                 categoryTitle.addEventListener('click', () => {
-                 location.hash = `#category=${category.id}-${category.name}`;
-               });
+  </script>
 
-               const categoryTitleText = document.createTextNode(category.name);
-
-               categoryTitle.appendChild(categoryTitleText);
-               categoryContainer.appendChild(categoryTitle);
-               categoriesPreviewContainer.appendChild(categoryContainer);
-                })
-           })
-       },
-
-       getCategoriesPrev (id ){
-        console.log('click' + id)
-
-       }
-
-      } 
-    </script>
-
-    <style>
-      .categoriesPreview-container{
-         display:flex;
-         flex-direction:row;
-         flex-wrap: wrap;
-         justify-content: center;
-         align-content: center;
+  <style>
+      .categoryPreview-movieList{
+        margin-bottom: 4vh;
+        overflow: auto;
+        white-space: nowrap;
       }
        
-      .categoriesPrevie{
-         text-align: center;
-         font-size: 4vh;
-         color: #7ac7ca;
-      } 
-
       .categoriesPreview-list{
         display: grid;
         justify-items: stretch;
@@ -73,32 +45,49 @@
         text-align: center;
       }
 
-      .category-container {
-        margin: 2vh;
-        background-image: 
-        radial-gradient(circle, 
-        #c4edde, #b2e4d6, 
-        #a0dacf, #8dd1c9, #7ac7c4);
-        padding: 0.8vh;
-        border-radius: 0.5vh;
-        box-shadow: 
-        rgba(6, 24, 44, 0.4)
-         0px 0px 0px 2px, 
-         rgba(6, 24, 44, 0.65) 
-         0px 4px 6px -1px, 
-         rgba(255, 255, 255, 0.08)
-         0px 1px 0px inset;
+      .movie-container{
+         display:flex;
+         flex-direction:column;
+         justify-content:center;
+         align-items:center;
+         display: inline-block;
+         color: white;
+         text-align: center;
+         padding: 14px;
+         box-shadow: 
+         rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+         rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 
+         rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
       }
 
-      .category-title{
-        font-size:2.5vh;
-        font-weight: 600;
-        color:#333;
-      }
+      .trending-preview-header{
+        display:flex;
+        flex-direction:row;
+        justify-content: space-around;
+        align-content: center;
+        margin-top:3vh;
+        margin-bottom:5vh;
+        width:95%;
+     }
+
+     .trending-title{
+        margin-left:3vh;
+        color:#C4EDDE;
+     }
+
+     .trending-preview-btn{
+        background-color:#7ac7c4;
+     }
+      
       @media (min-width: 800px) {
        .categoriesPreview-list{
         grid-template-columns: repeat(6, 1fr);
        }
+
+      ::-webkit-scrollbar{
+       background: #f73859;
+       border-radius: 20px;
+      }
       }
     </style>
 </categories-preview>

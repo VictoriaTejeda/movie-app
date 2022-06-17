@@ -1,35 +1,29 @@
 <tp-movielist>
-   <article class="trendingPreview-movieList">
-      
-   </article>
+  <article class="trendingPreview-movieList">   
+  </article>
 
-   <script>
-       import getTrendingMoviesPreview from "../../../service/movieService.js";
-       
-       
-       
+  <script>
+    import getTrendingMoviesPreview from "../../../service/movieService.js";
 
-     export default{
-   
-
-       onMounted(){
+    export default{
+      onMounted(){
         this.getTrendingPreview()
-       }, 
+      }, 
 
 
       getTrendingPreview() {
-           getTrendingMoviesPreview().then(function (response){
-            const movies = response.data.results;
-            const trendingPreviewContainer= document.querySelector('.trendingPreview-movieList')
-            movies.forEach( movie=> {
+        getTrendingMoviesPreview().then(function (response){
+          const movies = response.data.results;
+          const trendingPreviewContainer= document.querySelector('.trendingPreview-movieList')
+          movies.forEach( movie=> {
             trendingPreviewContainer.innerHTML += `
-               <div class="movie-container">
-                  <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" class="movie-img"
-                     alt=${movie.title}/>
-               </div>
-               `;
+              <div class="movie-container">
+                <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" class="movie-img"
+                alt=${movie.title}/>
+              </div>
+            `;
           })
-           })
+        })
       }
 
      }

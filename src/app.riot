@@ -3,7 +3,7 @@
     <router>
       <header class="row header">
         <nav class="menu column navbar navbar-expand-lg navbar-light ">
-          <a class="navbar-brand logo">MovieO</a>
+          <a href='/' class="navbar-brand logo">MovieO</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -22,21 +22,26 @@
           </div>
         </nav>
       </header>
-      
 
+      
       <div if={state.showNotFound} class="row">
         <div class="column column-60">
           <not-found />
         </div>
       </div>
       <div if={!state.showNotFound} class="row">
-        <div class="column column-60">
+        <div  class="column column-60">
           <route each={page in state.pages} path={page.path} hash={page.hash}>
-            <main is={page.componentName}/>
+            <main  is={page.componentName}/>
           </route>
         </div>
       </div>
-    </router>
+
+    <section id="location" >
+      <div id= "container-movie"> 
+        <generic-list/>
+      <div>
+    </section>
   </div>
 
   <script>
@@ -46,6 +51,24 @@
     import NotFound from './pages/not-found.riot'
     import pages from './pages'
 
+    window.addEventListener('DOMContentLoaded', navigator, false);
+    window.addEventListener('hashchange', navigator, false);
+
+     function navigator() {
+  console.log({ location });
+  
+  if (location.hash.startsWith('#trending')) {
+    console.log('trends')
+  } else if (location.hash.startsWith('#search=')) {
+    console.log('search')
+  } else if (location.hash.startsWith('#movie=')) {
+    console.log('movie');
+  } else if (location.hash.startsWith('#category=')) {
+    console.log('category')
+  } else {
+    ('home')
+  }
+     }
     export default {
       components: {
         Router,
@@ -132,5 +155,44 @@
       text-decoration: underline;
 
     }
+    #container-movie {
+      display: grid;
+      grid-gap:2vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1{ 
+       margin:2vh;
+        color:#c4edde;
+        text-align: center;
+        grid-column: 1/ span 2;
+        grid-row: 1 / Line2;
+    }
+
+    .movie-container{
+         width: 23vh;
+         display: inline-block;
+         color: white;
+         text-align: center;
+         padding: 14px;
+         box-shadow: 
+         rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+         rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 
+         rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+      }
+      
+      .movie-img{
+        width: 96%
+      }
+
+     @media (min-width: 1000px) {
+       h1{
+        grid-column: 1/ span 4;
+       }
+       .movie-container{
+        width: 35vh;
+      }
+     }
   </style>
 </app>

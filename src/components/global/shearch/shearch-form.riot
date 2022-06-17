@@ -5,9 +5,38 @@
     </form>
 
     <script>
-       export default{
-        
-       }
+      import getMoviesByShearch from "../../../service/movieBySearchService";
+
+
+      export default{
+         onMounted(){
+           const searchFormBtn= document.querySelector('.shearch');
+           const searchFormInput= document.querySelector('.form-control');
+           const containerMovie = document.querySelector('#container-movie');
+
+           searchFormBtn.addEventListener('click', () => {
+              const query= searchFormInput.value;
+               
+              location.hash = '#search=' + query; 
+
+              containerMovie.innerHTML="";
+
+              getMoviesByShearch(query).then(function (response){
+                const movies = response.data.results;
+                    console.log(movies)
+                    containerMovie.innerHTML+=`<h1 class="title" > Resultados de ${query}</h1>`
+                  movies.forEach(movie=> {
+                      containerMovie.innerHTML+=`
+                        <div class="movie-container">
+                          <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" class="movie-img"
+                          alt=${movie.title}/>
+                        </div>`
+                    })  
+              })      
+            })
+           
+          }
+      }
 
     </script>
 
